@@ -26,7 +26,7 @@ type Cycle struct {
 	Async bool
 }
 
-// Creates a new cycle
+// Creates a new cyclic handler
 func New(handler func(t time.Time), interval time.Duration, stopAfter time.Duration) Cycle {
 	return Cycle{
 		ticker:    time.NewTicker(interval),
@@ -45,7 +45,7 @@ func (c *Cycle) Stop() {
 	c.Stopped <- 1
 }
 
-// Check if cycle's life has expired, if true stops the cycle
+// Check if cycle's life has expired, if true stop cycling
 func (c *Cycle) CheckLifeExpired() {
 	if c.stopAfter != 0 && time.Since(c.endTime) > 0 {
 		c.Stop()
@@ -57,6 +57,7 @@ func (c *Cycle) SetLifetime() {
 	c.endTime = time.Now().Add(c.stopAfter)
 }
 
+// Start cyclic handler
 func (c *Cycle) Run() {
 	go func() {
 		c.SetLifetime()
@@ -81,12 +82,12 @@ func (c *Cycle) ResetInterval(t time.Duration) {
 	c.ticker.Reset(t)
 }
 
-// Resets the time to stop
+// Resets the time to stop cycling
 func (c *Cycle) ResetStopTime(t time.Duration) {
 	c.stopAfter = t
 }
 
-// Number of cyles executed
+// Number of cycles executed
 func (c *Cycle) Count() int {
 	return c.nCycles
 }
