@@ -85,6 +85,7 @@ func (c *Cycle) ResetInterval(t time.Duration) {
 // Resets the time to stop cycling
 func (c *Cycle) ResetStopTime(t time.Duration) {
 	c.stopAfter = t
+	c.SetLifetime()
 }
 
 // Number of cycles executed
