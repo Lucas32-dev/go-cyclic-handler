@@ -8,9 +8,15 @@ import (
 )
 
 func Endless() {
-	// will not stop cycling util c.Stop() is called
-	c := cycle.New(func(t time.Time) {
+	handler := func(t time.Time) {
 		log.Println(t)
-	}, time.Second, 0)
+	}
+
+	// will not stop cycling util c.Stop() is called
+	c := cycle.New(
+		handler,
+		time.Second, // interval between each cycle
+		0,           // don't stop cycling
+	)
 	c.Run()
 }
