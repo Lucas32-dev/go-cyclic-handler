@@ -22,8 +22,6 @@ type Cycle struct {
 	Handler func(t time.Time)
 	// Handler called on stop
 	Stopped chan int
-	// Execute handler asyncronously
-	Async bool
 }
 
 // Creates a new cyclic handler
