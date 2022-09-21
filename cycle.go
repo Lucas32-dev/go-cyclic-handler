@@ -92,3 +92,8 @@ func (c *Cycle) ResetStopTime(t time.Duration) {
 func (c *Cycle) Count() int {
 	return c.nCycles
 }
+
+// Returns the interval value between each cycle
+func (c *Cycle) GetInterval() time.Duration {
+	return c.interval
+}
